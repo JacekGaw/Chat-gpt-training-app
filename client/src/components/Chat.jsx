@@ -11,15 +11,16 @@ const Chat = () => {
     fetch("http://localhost:3000/api/message", {
       method: "post",
       headers: {
+        'Accept': 'application/json',
         "Content-Type": "application/json",
       },
       body: JSON.stringify(message),
     })
-      .then((response) => {
-        response.json();
-        console.log(response)
-      })
-      .then((data) => setData(data));
+      .then(response => response.json())
+      .then((dataFromServer) => {
+        const chatResponse = dataFromServer.message.content;
+        console.log(dataFromServer.message.content);
+        setData(chatResponse)});
   };
 
   useEffect(() => {
@@ -36,8 +37,8 @@ const Chat = () => {
         id="chatOutput"
         className="w-full  bg-black bg-opacity-50 drop-shadow-lg rounded-xl h-[500px] *:text-slate-100 p-5"
       >
-        {data}
-        <p>Chat with bot will appear here...</p>
+        
+        <p className="whitespace-pre-line">{data ? data : "Your chat response will be here..."}</p>
       </div>
       <form
         onSubmit={handleSubmit}
