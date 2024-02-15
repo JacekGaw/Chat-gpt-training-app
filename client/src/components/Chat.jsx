@@ -20,7 +20,9 @@ const Chat = () => {
       .then((dataFromServer) => {
         const chatResponse = dataFromServer.message.content;
         console.log(dataFromServer.message.content);
-        setData(chatResponse)});
+        setData(chatResponse);
+        userMessage.current.value = "";
+      });
   };
 
   useEffect(() => {
@@ -35,7 +37,7 @@ const Chat = () => {
     <div className="flex flex-col justify-center items-center gap-2 w-full max-w-screen-md m-auto">
       <div
         id="chatOutput"
-        className="w-full  bg-black bg-opacity-50 drop-shadow-lg rounded-xl h-[500px] *:text-slate-100 p-5"
+        className="w-full  bg-black bg-opacity-50 drop-shadow-lg rounded-xl h-[500px] max-h-screen overflow-y-auto *:text-slate-100 p-5"
       >
         
         <p className="whitespace-pre-line">{data ? data : "Your chat response will be here..."}</p>
