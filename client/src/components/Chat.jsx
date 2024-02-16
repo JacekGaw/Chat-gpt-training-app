@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const Chat = () => {
   const userMessage = useRef();
-  const [data, setData] = useState(null);
+  const [dataFromServer, setDataFromServer] = useState();
 
   const handleSubmit = (e) => {
     console.log(userMessage.current.value);
@@ -11,27 +11,27 @@ const Chat = () => {
     fetch("http://localhost:3000/api/message", {
       method: "post",
       headers: {
-        'Accept': 'application/json',
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(message),
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((dataFromServer) => {
-        const chatResponse = dataFromServer.message.content;
-        console.log(dataFromServer.message.content);
-        setData(chatResponse);
+        // const chatResponse = dataFromServer.message.content;
+        console.log(dataFromServer.message);
+        setDataFromServer(dataFromServer.message);
         userMessage.current.value = "";
-      });
+      }).catch((err) => {console.log(err);});
   };
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api")
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
+  console.log(dataFromServer);
 
-  console.log(data);
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/api")
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data));
+  // }, []);
 
   return (
     <div className="flex flex-col justify-center items-center gap-2 w-full max-w-screen-md m-auto">
@@ -39,8 +39,15 @@ const Chat = () => {
         id="chatOutput"
         className="w-full  bg-black bg-opacity-50 drop-shadow-lg rounded-xl h-[500px] max-h-screen overflow-y-auto *:text-slate-100 p-5"
       >
-        
-        <p className="whitespace-pre-line">{data ? data : "Your chat response will be here..."}</p>
+        <div className="whitespace-pre-line flex flex-col gap-2 w-full">
+          {dataFromServer ? (
+            dataFromServer.map((item, index) => {
+              return <p key={index} className={`bg-black w-[80%] p-2 rounded-lg ${item.role === "user" ? "self-end bg-blue-950" : " bg-black bg-opacity-50"}`}>{item.content}</p>;
+            })
+          ) : (
+            <p>I'm your assistant, ask me something!</p>
+          )}
+        </div>
       </div>
       <form
         onSubmit={handleSubmit}

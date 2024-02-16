@@ -26,9 +26,9 @@ async function main(userMessage) {
   });
 
   const generatedMessage = completion.choices[0].message;
-  writeToFile([...messagesToChat, userMessageJson, generatedMessage]);
+  await writeToFile([...messagesToChat, userMessageJson, generatedMessage]);
 
-  return generatedMessage;
+  return [...messagesToChat, userMessageJson, generatedMessage];
 }
 
 async function writeToFile(toWrite) {
