@@ -11,8 +11,8 @@ const port = 3000;
 import {config} from "dotenv";
 config();
 
-import main from "./openai-config.js";
-import { createFile, getHistoryData, clearHistory } from "./history-config.js";
+import main from "./controllers/openai-config.js";
+import { createFile, getHistoryData, clearHistory } from "./controllers/history-config.js";
 
 
 app.get("/api", async(req, res) => {

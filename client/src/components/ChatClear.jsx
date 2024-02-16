@@ -7,7 +7,7 @@ const ChatClear = ({ onClearHistory }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        onClearHistory();
+        onClearHistory(data);
         console.log(data);
       });
   };

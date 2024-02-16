@@ -1,4 +1,5 @@
 import React from "react";
+import messageFormatter from "../helpers/messageFormatter";
 
 const ChatMessages = ({ dataFromServer }) => {
   return (
@@ -6,8 +7,9 @@ const ChatMessages = ({ dataFromServer }) => {
       {dataFromServer && (
         dataFromServer.map((item, index) => {
           if (item.role !== "system") {
+            
             return (
-              <p
+              <div
                 key={index}
                 className={`bg-black w-[80%] p-2 rounded-lg ${
                   item.role === "user"
@@ -15,8 +17,8 @@ const ChatMessages = ({ dataFromServer }) => {
                     : " bg-black bg-opacity-50"
                 }`}
               >
-                {item.content}
-              </p>
+                {messageFormatter(item.content)}
+              </div>
             );
           }
           else {return <p key={index}>I'm your assistant, ask me something!</p>}

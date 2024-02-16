@@ -29,11 +29,17 @@ export async function getHistoryData() {
   return historyData;
 }
 
+export async function writeToFile(toWrite) {
+  const updatedData = JSON.stringify(toWrite, null, 2);
+
+  fs.writeFileSync(filePath, updatedData, "utf8");
+}
+
 export async function clearHistory() {
   const initialData = [
     {
       role: "system",
-      content: "You are a helpful assistant that return JSON",
+      content: "You are a helpful assistant that return JSON, wrap any code examples in <pre></pre>",
     },
   ];
   fs.writeFileSync(filePath, JSON.stringify(initialData, null, 2), "utf8");
