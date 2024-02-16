@@ -7,7 +7,7 @@ body {
   font-family: "Montserrat", sans-serif;  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: rgb(4,0,77);
-  background: linear-gradient(90deg, rgba(4,0,77,1) 0%, rgba(101,25,187,1) 50%, rgba(6,0,103,1) 99%);}
+  background: linear-gradient(90deg, rgba(34, 43, 62, 1) 0%, rgb(52, 67, 97) 50%, rgba(34, 43, 62, 1) 99%);}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

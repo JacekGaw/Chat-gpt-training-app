@@ -10,7 +10,7 @@
 
 #keys
 .env
-.history.json
+history.json
 
 # production
 /build

@@ -12,16 +12,24 @@ import {config} from "dotenv";
 config();
 
 import main from "./openai-config.js";
+import { createFile, getHistoryData, clearHistory } from "./history-config.js";
 
 
 app.get("/api", async(req, res) => {
-   res.json("I'am asistent from server. What can i do for you?");
+  await createFile();
+  const historyData = await getHistoryData();
+   res.json(historyData);
 });
 
 app.post('/api/message', async(req, res) => {
   const {userMessage} = req.body;
   const chatRes = await main(userMessage);
   res.json({message: chatRes});
+})
+
+app.post('/api/clear-history', async(req, res) => {
+  await clearHistory();
+  res.json("History cleared");
 })
 
 app.listen(port, () => {

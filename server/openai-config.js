@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import * as fs from "fs";
 config();
 import OpenAI from "openai";
+import { getHistoryData } from "./history-config.js";
 
 const openai = new OpenAI({
   apiKey: process.env["OPENAI_API_KEY"],
@@ -10,7 +11,7 @@ const openai = new OpenAI({
 const filePath = "history.json";
 
 async function main(userMessage) {
-  const messagesToChat = await checkIsHistoryFile();
+  const messagesToChat = await getHistoryData();
   let userMessageJson = {};
 
   if (userMessage) {
@@ -38,21 +39,5 @@ async function writeToFile(toWrite) {
   console.log("Conversation history has been written to the file.");
 }
 
-async function checkIsHistoryFile() {
-  let historyData = [];
-
-  if (fs.existsSync(filePath)) {
-    console.log("File exists. Reading history...");
-    const data = fs.readFileSync(filePath, "utf-8");
-    historyData = JSON.parse(data);
-  } else {
-    console.log("File does not exist. Creating a new one...");
-    const initialData = [{ role: "system", content: "You are a helpful assistant that return JSON" }];
-    fs.writeFileSync(filePath, JSON.stringify(initialData, null, 2), "utf8");
-    historyData = initialData;
-  }
-
-  return historyData;
-}
 
 export default main;
