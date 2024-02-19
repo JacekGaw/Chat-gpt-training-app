@@ -2,9 +2,8 @@ import React, {useState, useRef} from "react";
 import messageFormatter from "../helpers/messageFormatter";
 
 const ChatMessages = ({ dataFromServer }) => {
-
   const parentRef = useRef(null);
-  const [showElement, setShowElement] = useState(true);
+  const [showElement, setShowElement] = useState(false);
 
   const handleScroll = () => {
     const parentElement = parentRef.current;

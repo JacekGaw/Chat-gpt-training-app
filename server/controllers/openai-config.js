@@ -13,17 +13,22 @@ const filePath = "history.json";
 async function main(userMessage) {
   const messagesToChat = await getHistoryData();
   let userMessageJson = {};
-
   if (userMessage) {
     userMessageJson = { role: "user", content: userMessage };
   } else {
     const contentInput = "Say that this is a test";
     userMessageJson = { role: "user", content: contentInput };
   }
-  let mess = [...messagesToChat, userMessageJson]
-  console.log(mess.length);
+  let mess = [...messagesToChat, userMessageJson];
+  if(mess.length > 20) {
+    let coppiedMess = mess.slice(mess.length - 20, mess.length);
+    mess = coppiedMess;
+  }
   const completion = await openai.chat.completions.create({
-    messages: mess,
+    messages: [{
+      "role": "system",
+      "content": "You are a helpful assistant that return JSON, wrap any code examples in <pre></pre>"
+    }, ...mess],
     model: "gpt-3.5-turbo",
   });
 
