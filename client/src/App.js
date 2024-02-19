@@ -1,4 +1,5 @@
 import Chat from "./components/Chat";
+import History from "./components/History";
 
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       </header>
       <section className="p-5">
         <Chat />
+        <History />
       </section>
     </main>
   );

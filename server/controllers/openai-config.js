@@ -3,6 +3,9 @@ import * as fs from "fs";
 config();
 import OpenAI from "openai";
 import { getHistoryData, writeToFile } from "./history-config.js";
+import { addToDatabase, findInDatabase, deleteFromDatabase } from '../database/operations.js';
+const chatID = "1234567";
+
 
 const openai = new OpenAI({
   apiKey: process.env["OPENAI_API_KEY"],
@@ -19,6 +22,7 @@ async function main(userMessage) {
     const contentInput = "Say that this is a test";
     userMessageJson = { role: "user", content: contentInput };
   }
+  await addToDatabase(chatID, userMessageJson);
   let mess = [...messagesToChat, userMessageJson];
   if(mess.length > 20) {
     let coppiedMess = mess.slice(mess.length - 20, mess.length);
@@ -33,6 +37,8 @@ async function main(userMessage) {
   });
 
   const generatedMessage = completion.choices[0].message;
+  await addToDatabase(chatID, generatedMessage);
+
   await writeToFile([...messagesToChat, userMessageJson, generatedMessage]);
 
   return [...messagesToChat, userMessageJson, generatedMessage];

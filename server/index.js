@@ -10,6 +10,7 @@ app.use(bodyParser.json({ type: 'application/*+json' }))
 const port = 3000;
 import {config} from "dotenv";
 config();
+const chatID = "12345678";
 
 import main from "./controllers/openai-config.js";
 import { createFile, clearHistory, getHistoryData } from "./controllers/history-config.js";
