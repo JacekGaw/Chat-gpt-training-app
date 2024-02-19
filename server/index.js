@@ -12,13 +12,14 @@ import {config} from "dotenv";
 config();
 
 import main from "./controllers/openai-config.js";
-import { createFile, getHistoryData, clearHistory } from "./controllers/history-config.js";
-
+import { createFile, clearHistory, getHistoryData } from "./controllers/history-config.js";
+import { addToDatabase, findInDatabase, deleteFromDatabase } from './database/operations.js';
 
 app.get("/api", async(req, res) => {
   await createFile();
+  findInDatabase({});
   const historyData = await getHistoryData();
-   res.json(historyData);
+  res.json(historyData);
 });
 
 app.post('/api/message', async(req, res) => {

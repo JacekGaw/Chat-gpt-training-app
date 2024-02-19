@@ -23,6 +23,7 @@ const ChatMessages = ({ dataFromServer }) => {
   };
 
   return (
+    <>
     <div className="relative w-full h-[100%]">
       {showElement && <button onClick={handleScrollDown} className="material-symbols-outlined absolute bottom-[2%] left-[50%] translate-x-[-50%] bg-black border-4 border-sky-900 text-[15px]  transiton-all duration-300 p-2 rounded-full">arrow_downward</button>}
       <div ref={parentRef} onScroll={handleScroll} className="whitespace-pre-line flex flex-col scroll-smooth gap-2 w-full h-[100%] overflow-y-auto p-2">
@@ -46,7 +47,9 @@ const ChatMessages = ({ dataFromServer }) => {
             }
           })}
       </div>
+      
     </div>
+    </>
   );
 };
 

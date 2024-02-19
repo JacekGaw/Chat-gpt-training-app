@@ -59,7 +59,6 @@ const Chat = () => {
       >
         <ChatMessages dataFromServer={dataFromServer} />
         {loading && <RespondingLoader message={userMessage.current.value} />}
-
       </div>
       <form
         onSubmit={handleSubmit}
@@ -79,6 +78,7 @@ const Chat = () => {
           Send
         </button>
       </form>
+      {dataFromServer ? dataFromServer.length > 20 && <p className="text-xs text-slate-400">* for the optimization purposes, chat ony keeping context of the last 20 messages.</p> : ""}
       <ChatClear onClearHistory={() => setDataFromServer()} />
     </div>
   );
