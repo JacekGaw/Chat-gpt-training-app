@@ -1,7 +1,23 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import HistoryItem from './HistoryItem';
 
 const History = () => {
     const [convHistoryList, setConvHistoryList] = useState([]);
+
+    useEffect(() => {
+        async function getHistory() {
+            try {
+                const response = await fetch("http://localhost:3000/history");
+                if(!response.ok) {
+                    throw new Error(response.message);
+                }
+                const dataJSON = await response.json();
+                const data = JSON.parse(dataJSON);
+                setConvHistoryList(data);
+            } catch (error) { console.log(error); }
+        }
+        getHistory();
+    }, [])
 
     return (
         <>
@@ -11,7 +27,7 @@ const History = () => {
                 </header>
                 <ul>
                     {convHistoryList.map(convHistory => {
-                        return <li>{convHistory}</li>
+                        return <li key={convHistory._id}><HistoryItem historyInfo={convHistory} /></li>
                     })}
                 </ul>
             </div>
