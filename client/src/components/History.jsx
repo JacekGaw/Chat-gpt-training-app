@@ -21,13 +21,14 @@ const History = () => {
 
     return (
         <>
-            <div>
-                <header>
-                    <h3 className='text-slate-300 font-[800] text-sm border-b border-b-slate-400 p-1'>Conversations History: </h3>
+            <div className='flex flex-col min-w-56'>
+                <header className='p-2'>
+                    <h3 className='text-slate-300 font-[800] text-sm '>Conversations History: </h3>
                 </header>
-                <ul>
+                <ul className='flex flex-col gap-2'>
                     {convHistoryList.map(convHistory => {
-                        return <li key={convHistory._id}><HistoryItem historyInfo={convHistory} /></li>
+                        console.log(convHistory._id);
+                        return <li key={convHistory._id} className={`w-full rounded-lg  bg-black bg-opacity-20 border border-black  text-white`}><HistoryItem historyInfo={convHistory} /></li>
                     })}
                 </ul>
             </div>

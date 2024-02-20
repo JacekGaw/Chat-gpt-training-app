@@ -16,7 +16,7 @@ function App() {
             node JS.
           </p>
         </header>
-        <section className="p-5">
+        <section className="p-5 max-w-screen-xl mx-auto flex flex-col lg:flex-row-reverse gap-5">
           <Routes>
             <Route path="/" element={<StartConv />} />
             <Route path="/c/:conversationIDparam" element={<Chat />} />

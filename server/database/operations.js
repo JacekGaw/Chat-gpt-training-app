@@ -41,7 +41,7 @@ export async function getHistory(query) {
   const db = await connectToDatabase();
   const collection = db.collection("convHistory");
   const documents = await collection.find({}).toArray();
-  return documents.length > 0 ? documents : false;
+  return documents.length > 0 ? documents : [];
   
 }
 
