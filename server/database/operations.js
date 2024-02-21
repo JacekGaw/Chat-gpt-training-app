@@ -46,11 +46,11 @@ export async function getHistory(query) {
 }
 
 // Function to delete documents from the database
-export async function deleteFromDatabase(query) {
+export async function deleteConversation(docID) {
   const db = await connectToDatabase();
   const collection = db.collection("convHistory");
-  const result = await collection.deleteMany(query);
-  console.log("Documents deleted:", result.deletedCount);
+  const result = await collection.deleteOne({"_id": docID});
+  return result;
 }
 
 export async function createDocument(docID) {
@@ -61,5 +61,4 @@ export async function createDocument(docID) {
     timestamp: new Date(),
     messages: [],
   });
-  console.log("Inserted document:", newDoc);
 }

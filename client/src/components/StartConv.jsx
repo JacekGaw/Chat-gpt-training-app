@@ -20,8 +20,8 @@ const StartConv = () => {
     }
 
     return (
-        <div>
-            <button onClick={handleStart}>Start Conversation</button>
+        <div className='flex justify-center items-center'>
+            <button onClick={handleStart} className='bg-purple-800 text-slate-200 font-[700] p-5 rounded-xl drop-shadow-xl border-2 border-violet-900'>Start Conversation</button>
         </div>
     )
 

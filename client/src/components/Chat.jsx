@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import ChatMessages from "./ChatMessages";
-import ChatClear from "./ChatClear";
 import RespondingLoader from "./RespondingLoader";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import History from "./History";
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -11,10 +11,10 @@ const Chat = () => {
   const [serverReadiness, setServerReadiness] = useState(false);
   const [loading, setLoading] = useState(false);
 
+
   let { conversationIDparam } = useParams();
 
   const handleSubmit = (e) => {
-    console.log(userMessage.current.value);
     e.preventDefault();
     let message = { userMessage: userMessage.current.value };
     setLoading(true);
@@ -29,7 +29,6 @@ const Chat = () => {
       .then((response) => response.json())
       .then((dataFromServer) => {
         setLoading(false);
-        // const chatResponse = dataFromServer.message.content;
         console.log(dataFromServer.message);
         setDataFromServer(dataFromServer.message);
         userMessage.current.value = "";
@@ -50,7 +49,6 @@ const Chat = () => {
         }
         const data = await response.json();
         setServerReadiness(true);
-        console.log(data[0].messages);
         setDataFromServer(data[0].messages);
       } catch (error) {
         navigate("/");
@@ -63,7 +61,9 @@ const Chat = () => {
 
   return (
     <div className=" relative flex flex-col justify-center items-center gap-2 w-full ">
+      <Link to="/" className="self-start text-slate-200 text-sm underline hover:text-slate-400" reloadDocument>Start new</Link>
       <div className="w-full flex justify-start items-center gap-1">
+      
         <p className="text-slate-300 text-xs">Serwer readiness:</p>
         <p
           className={`material-symbols-outlined text-[18px] flex justify-center items-center ${
@@ -75,7 +75,7 @@ const Chat = () => {
       </div>
       <div
         id="chatOutput"
-        className="relative w-full  bg-black bg-opacity-50 drop-shadow-lg rounded-xl h-[700px] max-h-screen  *:text-slate-100 p-2"
+        className="relative w-full  bg-black bg-opacity-50 drop-shadow-lg rounded-xl h-[600px] max-h-screen  *:text-slate-100 p-2"
       >
         <ChatMessages dataFromServer={dataFromServer} />
         {loading && <RespondingLoader message={userMessage.current.value} />}
@@ -106,7 +106,7 @@ const Chat = () => {
             </p>
           )
         : ""}
-      {/* <ChatClear onClearHistory={() => setDataFromServer()} /> */}
+        
     </div>
   );
 };

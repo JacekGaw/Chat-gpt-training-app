@@ -28,7 +28,7 @@ async function main(convID, userMessage) {
     messages: [
       {
         role: "system",
-        content: "You are a helpful assistant that return JSON",
+        content: "You are a helpful assistant",
       },
       ...mess,
     ],

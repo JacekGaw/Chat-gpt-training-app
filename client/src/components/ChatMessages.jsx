@@ -42,7 +42,6 @@ const ChatMessages = ({ dataFromServer }) => {
         >
           {dataFromServer.length > 0 ? (
             dataFromServer.map((item, index) => {
-              console.log(index);
               return (
                 <div
                   key={item.content}

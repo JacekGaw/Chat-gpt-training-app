@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import { v4 as uuidv4 } from 'uuid';
 import {config} from "dotenv";
 import main from "./controllers/openai-config.js";
-import { addToDatabase, createDocument, findInDatabase, getHistory, deleteFromDatabase } from './database/operations.js';
+import { addToDatabase, createDocument, findInDatabase, getHistory, deleteConversation } from './database/operations.js';
 
 const app = express();
 app.use(cors());
@@ -45,6 +45,12 @@ app.post('/:convID/message', async(req, res) => {
   const convID = req.params.convID;
   const chatRes = await main(convID, userMessage);
   res.json({message: chatRes});
+})
+
+app.delete('/delete', async (req, res) => {
+  const {convID} = req.body;
+  const deleteResponse = await deleteConversation(convID);
+  res.send(deleteResponse.status);
 })
 
 app.listen(port, () => {
