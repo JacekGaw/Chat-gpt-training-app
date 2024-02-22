@@ -4,7 +4,6 @@ import messageFormatter from "../helpers/messageFormatter";
 const ChatMessages = ({ dataFromServer }) => {
   const parentRef = useRef(null);
   const [showElement, setShowElement] = useState(false);
-
   const handleScroll = () => {
     const parentElement = parentRef.current;
 
@@ -44,7 +43,7 @@ const ChatMessages = ({ dataFromServer }) => {
             dataFromServer.map((item, index) => {
               return (
                 <div
-                  key={item.content}
+                  key={index}
                   className={`bg-black w-[80%] text-sm p-2 rounded-lg ${
                     item.role === "user"
                       ? "self-end bg-blue-950"
@@ -56,7 +55,7 @@ const ChatMessages = ({ dataFromServer }) => {
               );
             })
           ) : (
-            <p>I'm your assistant, ask me something!</p>
+            <p key={Math.random()}>I'm your assistant, ask me something!</p>
           )}
         </div>
       </div>

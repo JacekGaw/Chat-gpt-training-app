@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import HistoryItem from "./HistoryItem";
 import { useNavigate } from "react-router";
+import { useParams } from "react-router-dom";
 
-const History = () => {
+const History = ({ data }) => {
   const [convHistoryList, setConvHistoryList] = useState([]);
   const navigate = useNavigate();
+  const { conversationIDparam } = useParams();
 
   async function getHistory() {
     try {
@@ -22,11 +24,13 @@ const History = () => {
 
   useEffect(() => {
     getHistory();
-  }, []);
+  }, [data]);
 
-  const handleDelete = () => {
+  const handleDelete = (deletingID) => {
     getHistory();
-    navigate("/", { replace: true });
+    if (deletingID === conversationIDparam) {
+      navigate("/", { replace: true });
+    }
   };
 
   return (
@@ -36,7 +40,12 @@ const History = () => {
           <h3 className="text-slate-300 font-[800] text-sm ">
             Conversations History:{" "}
           </h3>
-          <button onClick={() => window.location.reload()} className="material-symbols-outlined text-slate-500">sync</button>
+          <button
+            onClick={() => window.location.reload()}
+            className="material-symbols-outlined text-slate-500"
+          >
+            sync
+          </button>
         </header>
         <ul className="flex flex-col justify-start items-start gap-2">
           {convHistoryList.map((convHistory) => {

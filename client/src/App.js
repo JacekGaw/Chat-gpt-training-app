@@ -1,5 +1,4 @@
 import Chat from "./components/Chat";
-import History from "./components/History";
 import StartConv from "./components/StartConv";
 import { Route, Routes } from "react-router-dom";
 
@@ -22,7 +21,6 @@ function App() {
             <Route path="/" element={<StartConv />} />
             <Route path="/c/:conversationIDparam" element={<Chat />} />
           </Routes>
-          <History />
         </section>
       </main>
   );

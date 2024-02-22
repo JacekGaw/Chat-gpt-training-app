@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const StartConv = () => {
@@ -11,12 +11,10 @@ const StartConv = () => {
                 throw new Error(`${response.status} ${response.statusText}`);
             }
             const data = await response.json();
-            console.log(JSON.parse(data));
             navigate(`/c/${JSON.parse(data)}`);
         } catch (error) {
             console.log(error);
         }
-        
     }
 
     return (

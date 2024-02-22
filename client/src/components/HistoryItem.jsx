@@ -19,8 +19,7 @@ const HistoryItem = ({ historyInfo, onDelete }) => {
         if(!response.ok) {
           throw new Error(`Could not delete ${historyInfo._id}`, response.message);
         }
-        const data = response;
-        onDelete();
+        onDelete(historyInfo._id);
       } catch (error) {console.log(error)}
     }
     Delete();
@@ -28,7 +27,7 @@ const HistoryItem = ({ historyInfo, onDelete }) => {
 
   return (
     <div className="group flex">
-    <Link to={`c/${historyInfo._id}`} className="group w-full p-2 flex gap-2 flex-row justify-start *:text-sm ">
+    <Link to={`/c/${historyInfo._id}`} className="group w-full p-2 flex gap-2 flex-row justify-start *:text-sm ">
       <p>{decodeTimestamp(historyInfo.timestamp)}</p>
       <p>Messages: {historyInfo.messages.length}</p>
       
