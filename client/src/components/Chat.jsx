@@ -34,13 +34,16 @@ const Chat = () => {
 
   return (
     <div className=" relative flex flex-col justify-center items-center gap-2 w-full ">
-      <Link
-        to="/"
-        className="self-start text-slate-200 text-sm underline hover:text-slate-400"
-        reloadDocument
-      >
-        Start new
-      </Link>
+      <div className="w-full flex flex-row justify-between items-center">
+        <Link
+          to="/"
+          className="self-start text-slate-200 text-sm underline hover:text-slate-400"
+          reloadDocument
+        >
+          Start new
+        </Link>
+        <History data={dataFromServer} />
+      </div>
       <div className="w-full flex justify-start items-center gap-1">
         <p className="text-slate-300 text-xs">Serwer readiness:</p>
         <p
@@ -53,7 +56,7 @@ const Chat = () => {
       </div>
       <div
         id="chatOutput"
-        className="relative w-full  bg-black bg-opacity-50 drop-shadow-lg rounded-xl h-[600px] max-h-screen  *:text-slate-100 p-2"
+        className="relative w-full  bg-black bg-opacity-50 drop-shadow-lg rounded-xl h-[600px] max-h-[80vh]  *:text-slate-100 p-2"
       >
         <ChatMessages dataFromServer={dataFromServer} />
         {loading && <RespondingLoader />}
@@ -72,7 +75,6 @@ const Chat = () => {
             </p>
           )
         : ""}
-      <History data={dataFromServer} />
     </div>
   );
 };

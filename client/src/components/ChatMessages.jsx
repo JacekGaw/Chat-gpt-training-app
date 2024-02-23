@@ -1,9 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import messageFormatter from "../helpers/messageFormatter";
 
 const ChatMessages = ({ dataFromServer }) => {
-  const parentRef = useRef(null);
+  const parentRef = useRef();
+  const dummyElement = useRef();
+
   const [showElement, setShowElement] = useState(false);
+
+  useEffect(() => {
+    handleScrollDown();
+  }, [dataFromServer])
+
   const handleScroll = () => {
     const parentElement = parentRef.current;
 
@@ -17,7 +24,6 @@ const ChatMessages = ({ dataFromServer }) => {
 
   const handleScrollDown = () => {
     const parentElement = parentRef.current;
-
     if (parentElement) {
       parentElement.scrollTop = parentElement.scrollHeight;
     }
@@ -37,6 +43,7 @@ const ChatMessages = ({ dataFromServer }) => {
         <div
           ref={parentRef}
           onScroll={handleScroll}
+
           className="whitespace-pre-line flex flex-col scroll-smooth gap-2 w-full h-[100%] overflow-y-auto p-2"
         >
           {dataFromServer.length > 0 ? (
@@ -44,13 +51,14 @@ const ChatMessages = ({ dataFromServer }) => {
               return (
                 <div
                   key={index}
-                  className={`bg-black w-[80%] text-sm p-2 rounded-lg ${
+                  className={`bg-black max-w-[80%] text-sm p-2 rounded-lg ${
                     item.role === "user"
-                      ? "self-end bg-blue-950"
+                      ? "self-end bg-blue-950 text-right"
                       : " bg-black bg-opacity-50"
                   }`}
                 >
-                  {messageFormatter(item.content)}
+                  <p className={`text-[10px] font-[700] uppercase w-full ${item.role === "user" && "text-right"}`}>{item.role}</p>
+                  <p className="p-1 font-[300]">{messageFormatter(item.content)}</p>
                 </div>
               );
             })

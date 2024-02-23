@@ -26,13 +26,13 @@ const HistoryItem = ({ historyInfo, onDelete }) => {
   }
 
   return (
-    <div className="group flex">
-    <Link to={`/c/${historyInfo._id}`} className="group w-full p-2 flex gap-2 flex-row justify-start *:text-sm ">
-      <p>{decodeTimestamp(historyInfo.timestamp)}</p>
-      <p>Messages: {historyInfo.messages.length}</p>
+    <div className="group flex justify-between">
+    <Link to={`/c/${historyInfo._id}`} className="group w-full p-1 flex gap-2 flex-row no-wrap *:text-xs *:text-slate-300 ">
+      <p className="shrink-0">{decodeTimestamp(historyInfo.timestamp)}</p>
+      <p className="shrink-0">Messages: {historyInfo.messages.length}</p>
       
     </Link>
-    <button className="group-hover:flex hidden material-symbols-outlined justify-center items-center" onClick={handleDelete}>delete</button>
+    <button className="flex material-symbols-outlined justify-center text-[16px] items-center" onClick={handleDelete}>delete</button>
  </div>
   );
 };

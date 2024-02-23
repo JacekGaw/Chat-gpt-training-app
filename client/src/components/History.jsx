@@ -35,24 +35,27 @@ const History = ({ data }) => {
 
   return (
     <>
-      <div className="flex flex-col min-w-56">
-        <header className="p-2 flex items-center gap-1">
-          <h3 className="text-slate-300 font-[800] text-sm ">
-            Conversations History:{" "}
+      <div className="group relative flex flex-col w-auto">
+        <header className=" flex items-center gap-1">
+          <h3 className="text-slate-300 underline font-[500] text-sm ">
+            Conversations History
           </h3>
           <button
             onClick={() => window.location.reload()}
             className="material-symbols-outlined text-slate-500"
           >
-            sync
+            history
           </button>
         </header>
-        <ul className="flex flex-col justify-start items-start gap-2">
+        <div className="z-10 hidden group-hover:block w-auto absolute top-100 left-[-50%]">
+          
+        <ul className="flex flex-col gap-2 bg-[#121b32] p-5 rounded-md">
+        <p className="text-slate-200 text-sm">History:</p>
           {convHistoryList.map((convHistory) => {
             return (
               <li
                 key={convHistory._id}
-                className={`group rounded-lg  bg-black bg-opacity-20 border border-black  text-white `}
+                className={`group text-white w-full `}
               >
                 <HistoryItem
                   historyInfo={convHistory}
@@ -62,6 +65,7 @@ const History = ({ data }) => {
             );
           })}
         </ul>
+        </div>
       </div>
     </>
   );
